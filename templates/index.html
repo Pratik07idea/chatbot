@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flask Chatbot</title>
+
+    <!-- Inter Font for Modern UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Your CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <main class="chat-container">
-        <header class="chat-header">🤖 Chatbot</header>
+        <!-- Header -->
+        <header class="chat-header">
+            🤖  Chatbot
+        </header>
 
+        <!-- Scrollable Chat Messages -->
         <section id="chat-box" class="chat-box" aria-live="polite"></section>
 
+        <!-- Input Bar -->
         <footer class="chat-input">
-            <input 
-                type="text" 
-                id="user-input" 
-                placeholder="Type your message…" 
-                autocomplete="off" 
-                aria-label="Your message"
-            >
+            <input
+                type="text"
+                id="user-input"
+                placeholder="Type your message…"
+                autocomplete="off"
+                aria-label="Type your message"
+            />
             <button id="send-btn" type="button">Send</button>
         </footer>
     </main>
@@ -46,16 +58,16 @@
                 const data = await res.json();
                 appendMessage("bot", data.response);
             } catch (err) {
-                appendMessage("bot", "⚠️ Sorry, there was an error. Please try again.");
+                appendMessage("bot", "⚠️ Something went wrong. Please try again.");
                 console.error(err);
             }
         }
 
         function appendMessage(sender, message) {
-            const msgDiv = document.createElement("div");
-            msgDiv.className = `message ${sender}`;
-            msgDiv.innerHTML = `<div class="message-content">${message}</div>`;
-            chatBox.appendChild(msgDiv);
+            const wrapper = document.createElement("div");
+            wrapper.className = `message ${sender}`;
+            wrapper.innerHTML = `<div class="message-content">${message}</div>`;
+            chatBox.appendChild(wrapper);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
